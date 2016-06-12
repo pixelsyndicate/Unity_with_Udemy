@@ -15,18 +15,22 @@ public class NumberWizard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+           // Debug.Log("Pressed " + KeyCode.UpArrow);
             _min = _guess;
             NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+           // Debug.Log("Pressed " + KeyCode.DownArrow);
             _max = _guess;
             NextGuess();
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
+          //  Debug.Log("Pressed " + KeyCode.Return);
             print("I Won!");
             StartGame();
         }
