@@ -1,17 +1,20 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using System.Runtime.Remoting.Channels;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TextController : MonoBehaviour
 {
     public Text TextBox;
 
+
     private States state;
 
     private enum States
     {
         cell,
-        mirror, sheets_0,
+        mirror,
+        sheets_0,
         lock_0,
         cell_mirror,
         lock_1,
@@ -32,109 +35,76 @@ public class TextController : MonoBehaviour
         Quit
     }
 
-    private void StateMachine(States s)
+    private void StateMachine(States currentState)
     {
-
-        if (s == States.cell)
+        switch (currentState)
         {
-            cell();
-
-        }
-        else if (s == States.sheets_0)
-        {
-            sheets_0();
-
-        }
-        else if (s == States.stairs_0)
-        {
-            stairs_0();
-
-        }
-        else if (s == States.stairs_1)
-        {
-            stairs_1();
-
-        }
-        else if (s == States.stairs_2)
-        {
-            stairs_2();
-
-        }
-        else if (s == States.mirror)
-        {
-            mirror();
-
-        }
-        else if (s == States.lock_0)
-        {
-            lock_0();
-
-        }
-        else if (s == States.sheets_1)
-        {
-            sheets_1();
-
-        }
-        else if (s == States.cell_mirror)
-        {
-            cell_mirror();
-
-        }
-        else if (s == States.lock_1)
-        {
-            lock_1();
-
-        }
-        else if (s == States.corridor_0)
-        {
-            corridor_0();
-
-        }
-        else if (s == States.corridor_3)
-        {
-            corridor_3();
-
-        }
-        else if (s == States.corridor_1)
-        {
-            corridor_1();
-
-        }
-        else if (s == States.corridor_2)
-        {
-            corridor_2();
+            case States.cell:
+                cell();
+                break;
+            case States.sheets_0:
+                sheets_0();
+                break;
+            case States.sheets_1:
+                sheets_1();
+                break;
+            case States.corridor_0:
+                corridor_0();
+                break;
+            case States.corridor_1:
+                corridor_1();
+                break;
+            case States.corridor_2:
+                corridor_2();
+                break;
+            case States.corridor_3:
+                corridor_3();
+                break;
+            case States.stairs_0:
+                stairs_0();
+                break;
+            case States.stairs_1:
+                stairs_1();
+                break;
+            case States.stairs_2:
+                stairs_2();
+                break;
+            case States.mirror:
+                mirror();
+                break;
+            case States.lock_0:
+                lock_0();
+                break;
+            case States.lock_1:
+                lock_1();
+                break;
+            case States.floor:
+                floor();
+                break;
+            case States.cell_mirror:
+                cell_mirror();
+                break;
+            case States.closet_door:
+                closet_door();
+                break;
+            case States.in_closet:
+                in_closet();
+                break;
+            case States.courtyard:
+                courtyard();
+                break;
+            case States.credits:
+                credits();
+                break;
+            case States.start:
+                letsStart();
+                break;
+            case States.Quit:
+                Quit();
+                break;
 
         }
-        else if (s == States.floor)
-        {
-            floor();
-
-        }
-        else if (s == States.closet_door)
-        {
-            closet_door();
-
-        }
-        else if (s == States.in_closet)
-        {
-            in_closet();
-
-        }
-        else if (s == States.courtyard)
-        {
-            courtyard();
-        }
-        else if (s == States.credits)
-        {
-            credits();
-        }
-        else if (s == States.start)
-        {
-            start();
-        }
-        
     }
-
 
 
     // Use this for initialization
@@ -144,21 +114,30 @@ public class TextController : MonoBehaviour
 
     }
 
+
+
+    void Quit()
+    {
+        Application.Quit();
+    }
+
+
+
     // Update is called once per frame
     void Update()
     {
         StateMachine(state);
         print(state);
-
     }
 
-    
+
 
     #region Action Methods
 
     private void in_closet()
     {
-        TextBox.text = "Description: obsessive MacGuiver binge watching has got you  into the closet. There's a janitors uniform in here. \n\n Press [D] to dress yourself in it or [R] to return to the corridor.";
+        TextBox.text =
+            "Description: obsessive MacGuiver binge watching has got you  into the closet. There's a janitors uniform in here. \n\n Press [D] to dress yourself in it or [R] to return to the corridor.";
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -179,6 +158,7 @@ public class TextController : MonoBehaviour
             state = States.floor;
         }
     }
+
     private void corridor_2()
     {
         TextBox.text = "Description: You are in  a corridor. " +
@@ -226,8 +206,9 @@ public class TextController : MonoBehaviour
 
     private void stairs_2()
     {
-        TextBox.text = "Description: You head down the stairs, but see at the bottom a burley guard. Geeze. If only you had some kind of disguise! " +
-                       "\n\n Press [R] to Return up the stairs.";
+        TextBox.text =
+            "Description: You head down the stairs, but see at the bottom a burley guard. Geeze. If only you had some kind of disguise! " +
+            "\n\n Press [R] to Return up the stairs.";
 
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -238,8 +219,9 @@ public class TextController : MonoBehaviour
 
     private void stairs_1()
     {
-        TextBox.text = "Description: You head down the stairs, but see at the bottom a burley guard. This hair in your inventory seems to be insignificant to the task of getting past this guard.  " +
-                       "\n\n Press [R] to Return up the stairs.";
+        TextBox.text =
+            "Description: You head down the stairs, but see at the bottom a burley guard. This hair in your inventory seems to be insignificant to the task of getting past this guard.  " +
+            "\n\n Press [R] to Return up the stairs.";
 
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -278,7 +260,7 @@ public class TextController : MonoBehaviour
         }
     }
 
-    private void start()
+    private void letsStart()
     {
         TextBox.text =
             "You wake in a cold jail cell. You have a foggy recollection of a smoky ... bar? party? house fire? " +
@@ -301,8 +283,6 @@ public class TextController : MonoBehaviour
             state = States.corridor_1;
         }
     }
-
-
 
     private void lock_1()
     {
@@ -346,8 +326,9 @@ public class TextController : MonoBehaviour
 
     private void lock_0()
     {
-        TextBox.text = "Description: The lock seems pretty solid, and looking through the lock you can see the key is in it, on the other side. " +
-                       "\n\n Press [R] to return.";
+        TextBox.text =
+            "Description: The lock seems pretty solid, and looking through the lock you can see the key is in it, on the other side. " +
+            "\n\n Press [R] to return.";
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -397,25 +378,26 @@ public class TextController : MonoBehaviour
 
     private void credits()
     {
-        TextBox.text = "Thank you for playing Prison. \n\n Build with Unity. \n\nCopyright 2016 by The Pixel Syndicate" +
+
+        TextBox.text =
+            "Thank you for playing Prison. \n\n Build with Unity, Personal Edition. &copy; Copyright 2016 by The Pixel Syndicate" +
             "\n\n Press Space to start over. Press Q to quit.";
         if (Input.GetKeyDown(KeyCode.Space))
             state = States.start;
         if (Input.GetKeyDown(KeyCode.Q))
-        {
             state = States.Quit;
-        }
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+            state = States.Quit;
     }
 
     private void courtyard()
     {
-        TextBox.text = "Description: The guard gives you a brotherly nod and a fist-bump, releasing the latch on the barred exit, allowing you to leave without incident. You've made it to the public courtyard and without much time lost, on way HOME! MacGuiver's season 2 is playing on Netflix this evening. Perhaps you should go settle down with a bowl of popcorn. " +
-                       "\n\n Press [E] to end this adventure.";
+        TextBox.text =
+            "Description: The guard gives you a brotherly nod and a fist-bump, releasing the latch on the barred exit, allowing you to leave without incident. You've made it to the public courtyard and without much time lost, on way HOME! MacGuiver's season 2 is playing on Netflix this evening. Perhaps you should go settle down with a bowl of popcorn. " +
+            "\n\n Press [E] to end this adventure.";
 
         if (Input.GetKeyDown(KeyCode.E))
             state = States.credits;
-
     }
 
     #endregion
